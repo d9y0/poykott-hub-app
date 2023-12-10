@@ -10,11 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: nick-invision/assert-action@v1
+      - name: Get version
+        id: yq
+        uses: mikefarah/yq@master
         with:
-          expected: 0.0.1-alpha+${{ github.run_number }}
-          actual: ${{ steps.read-version.outputs.version-number }}
+          cmd: yq -r '.version' 'pubspec.yaml'
 
+      - name: ggg
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq w pubspec.yaml '.version' "$(cut -d'+' -f1 <<<"${{ steps.yq.outputs.result }}")"+${{ github.run_number }}
       - name: Update pubspec.yaml version
         uses: test-room-7/action-update-file@v1
         with:
