@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  if: github.actor != 'github-actions[bot]'
   version_build_number:
     name: Create version build number and push it
     runs-on: ubuntu-latest
