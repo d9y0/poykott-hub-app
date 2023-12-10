@@ -1,0 +1,121 @@
+name: Android Release
+
+
+
+on:
+  push:
+    tags:
+      - 'v*-alpha'
+
+
+  
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: Create Android Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: set version on env
+        run: export boycott_hub_app_version=$( echo "$a" | sed "s/v(*-alpha)/$1/g" <<< ${{ github.ref }})
+      - name: Update version in YAML
+        run: |
+          boycott_hub_app_version=$( echo "${{ github.ref }}" | sed -e 's/^v//g' )
+          awk -v version="$boycott_hub_app_version" -v version_num=${{ github.run_number }} '{gsub(/version: [0-9]+\.[0-9]\.[0-9]-alpha\+[0-9]+/, "version: "version"+"version_num); print}' pubspec.yaml > pubspec.yamll && mv pubspec.yamll pubspec.yaml
+#        run: sed -i 's/0.0.0-alpha+0/0.0.1-alpha+1/g' pubspec.yaml
+      - name: Download Android keystore
+        id: android_keystore
+        uses: timheuer/base64-to-file@v1.0.3
+        with:
+          fileName: upload-keystore.jks
+          encodedString: ${{ secrets.KEYSTORE_BASE64 }}
+      
+      - name: Create key.properties
+        run: |
+          echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+      
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: "12.x"
+          cache: gradle
+
+      # Gradle cache for faster builds
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.13.6"
+          channel: 'stable'
+          cache: true
+      
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: run build_runner
+        run: dart run build_runner build --delete-conflicting-outputs
+      
+      - name: Start Android Release Build aab
+        run: flutter build appbundle
+
+      - name: Start Android Release Build apk
+        run: flutter build apk --release --obfuscate --split-debug-info=./split-debug-info/
+
+      - name: Upload Android Release aab
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-release
+          path: build/app/outputs/bundle/release/app-release.aab
+
+      - name: Upload Android Release apk
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-release
+          path: build/app/outputs/flutter-apk/**/*.apk
+  
+  deploy:
+    name: Deploy Android Build
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get Android Build from artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: android-release
+          path: artifacts
+      - name: ls
+        run: ls
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.MY_GITHUB_TOKEN }}
+          file: "artifacts/*.apk"
+          tag: ${{ github.ref }}
+          file_glob: true
+
+
+      
+          
+
+  
+
+
+
+
+
+
+
+
+
