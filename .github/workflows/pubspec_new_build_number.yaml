@@ -35,3 +35,4 @@ jobs:
           file-path: pubspec.yaml
           commit-msg: auto update pubspec.yaml version
           github-token: ${{ secrets.MY_GITHUB_TOKEN }}
+          
