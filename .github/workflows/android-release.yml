@@ -66,7 +66,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: android-release
-          path: build/app/outputs/flutter-apk/release/**/*.apk
+          path: build/app/outputs/flutter-apk/**/*.apk
   
   deploy:
     name: Deploy Android Build
@@ -78,7 +78,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: android-release
-
+      - name: ls
+        run: ls
       - name: unzip artifact
         run: unzip /home/runner/work/poykott-hub-app/poykott-hub-app/android-release
       - name: ls
