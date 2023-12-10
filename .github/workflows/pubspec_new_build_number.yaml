@@ -2,6 +2,8 @@
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -16,10 +18,10 @@ jobs:
         with:
           cmd: yq -r '.version' 'pubspec.yaml'
 
-      - name: ggg
+      - name: update pubspec.yaml
         uses: mikefarah/yq@master
         with:
-          cmd: yq w pubspec.yaml '.version' "$(cut -d'+' -f1 <<<"${{ steps.yq.outputs.result }}")"+${{ github.run_number }}
+          cmd: yq w pubspec.yaml '.version' $(cut -d'+' -f1 <<< ${{ steps.yq.outputs.result }})+${{ github.run_number }}
       - name: Update pubspec.yaml version
         uses: test-room-7/action-update-file@v1
         with:
