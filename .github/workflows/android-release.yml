@@ -79,11 +79,14 @@ jobs:
           name: android-release
       - name: ls
         run: ls
-      - uses: AButler/upload-release-assets@v3.0
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          files: "*.apk;*.aab;LICENSE"
-          repo-token: ${{ secrets.MY_GITHUB_TOKEN }}
-          release-tag: ${{  github.ref_name }}
+          repo_token: ${{ secrets.MY_GITHUB_TOKEN }}
+          file: ./*.apk
+          tag: ${{ github.ref }}
+
+
       
           
 
