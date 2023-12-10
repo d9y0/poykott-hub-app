@@ -11,6 +11,7 @@ jobs:
   version_build_number:
     name: Create version build number and push it
     runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
     steps:
       - uses: actions/checkout@v3
       - name: Get version
