@@ -78,15 +78,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: android-release
-          path: artifacts
       - name: ls
         run: ls
-      - name: ls
-        run: ls ./artifacts
-        
       - uses: AButler/upload-release-assets@v3.0
         with:
-          files: "./artifacts/*;./LICENSE"
+          files: "*.apk;*.aab;LICENSE"
           repo-token: ${{ secrets.MY_GITHUB_TOKEN }}
           release-tag: "v0.0.1-alpha"
           release-id: "1"
