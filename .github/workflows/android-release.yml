@@ -84,8 +84,9 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.MY_GITHUB_TOKEN }}
-          file: "artifacts"
+          file: "artifacts/*.apk"
           tag: ${{ github.ref }}
+          file_glob: true
 
 
       
