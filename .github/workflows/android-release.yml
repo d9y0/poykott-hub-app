@@ -81,13 +81,16 @@ jobs:
           path: artifacts
       - name: ls
         run: ls
+      - name: ls
+        run: ls ./artifacts
         
-
-      - uses: robinraju/release-downloader@v1.8
+      - uses: AButler/upload-release-assets@v3.0
         with:
-          out-file-path: "./artifacts"
-          token: ${{ secrets.MY_GITHUB_TOKEN }}
-          tag: "v0.0.1-alpha"
+          files: "./artifacts/*;./LICENSE"
+          repo-token: ${{ secrets.MY_GITHUB_TOKEN }}
+          release-tag: "v0.0.1-alpha"
+          release-id: "1"
+          
 
   
 
