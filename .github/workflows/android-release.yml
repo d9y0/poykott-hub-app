@@ -84,7 +84,7 @@ jobs:
         
       - uses: AButler/upload-release-assets@v3.0
         with:
-          files: "artifacts/*.apk;artifacts/*.aab;./LICENSE;"
+          files: "artifacts/*.apk;artifacts/*.aab;./LICENSE"
           repo-token: ${{ secrets.MY_GITHUB_TOKEN }}
 
   
