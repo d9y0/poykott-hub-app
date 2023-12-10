@@ -82,10 +82,12 @@ jobs:
       - name: ls
         run: ls
         
-      - uses: AButler/upload-release-assets@v3.0
+
+      - uses: robinraju/release-downloader@v1.8
         with:
-          files: "artifacts/*.apk;artifacts/*.aab;./LICENSE"
-          repo-token: ${{ secrets.MY_GITHUB_TOKEN }}
+          out-file-path: "./artifacts"
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          tag: "v0.0.1-alpha"
 
   
 
