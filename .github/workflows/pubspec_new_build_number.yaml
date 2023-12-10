@@ -17,11 +17,12 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq -r '.version' 'pubspec.yaml'
-
+      - name: ls
+        run: ls
       - name: update pubspec.yaml
         uses: mikefarah/yq@master
         with:
-          cmd: yq w -i pubspec.yaml '.version' $(cut -d'+' -f1 <<< ${{ steps.yq.outputs.result }})+${{ github.run_number }}
+          cmd: yq w -i ./pubspec.yaml '.version' $(cut -d'+' -f1 <<< ${{ steps.yq.outputs.result }})+${{ github.run_number }}
       - name: Update pubspec.yaml version
         uses: test-room-7/action-update-file@v1
         with:
