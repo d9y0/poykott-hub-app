@@ -2,13 +2,12 @@ name: Android Release
 
 
 
-
-
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:
+      - 'v*-alpha'
+
+
   
   workflow_dispatch:
 
@@ -84,8 +83,8 @@ jobs:
         with:
           files: "*.apk;*.aab;LICENSE"
           repo-token: ${{ secrets.MY_GITHUB_TOKEN }}
-          release-tag: "v0.0.1-alpha"
-          release-id: "1"
+          release-tag: ${{  github.ref_name }}
+      
           
 
   
