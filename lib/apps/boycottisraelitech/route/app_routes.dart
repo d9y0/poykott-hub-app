@@ -56,7 +56,7 @@ class AppRouter extends _$AppRouter {
 
         CustomRoute(
           page: BoycottIsraeliTech_SearchFiltersBottomSheetsRoute.page,
-          path: "/AppsViewScreen",
+          path: SearchFilter.path,
           customRouteBuilder: modalSheetBuilder,
         ),
 

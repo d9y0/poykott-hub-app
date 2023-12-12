@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:boycott_hub/apps/boycottisraelitech/main/boycott_israeli_tech_app.dart';
+import 'package:boycott_hub/apps/boycottisraelitech/route/app_routes.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +21,13 @@ class BoycottIsraeliTechLancherScreen extends StatelessWidget {
           if (overrides.data == null) {
             return Container();
           }
-          return ProviderScope(overrides: overrides.data!, child: const BoycottIsraeliTechApp());
+          return WillPopScope(
+            onWillPop: () async {
+              boycottIsraeliTechRouter.pop();
+              return false;
+            },
+            child: ProviderScope(overrides: overrides.data!, child: const BoycottIsraeliTechApp()),
+          );
         });
   }
 }
