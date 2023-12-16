@@ -12,5 +12,7 @@ class AppModel with _$AppModel {
     required String img,
     required String website,
     required String appPath,
+    required String backgroundColor,
+    required String forgroundColor,
   }) = _AppModel;
 }

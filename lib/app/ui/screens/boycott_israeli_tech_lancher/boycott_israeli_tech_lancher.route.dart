@@ -23,7 +23,8 @@ class BoycottIsraeliTechLancherScreen extends StatelessWidget {
           }
           return WillPopScope(
             onWillPop: () async {
-              boycottIsraeliTechRouter.pop();
+              AppRouter.currentRouter?.pop();
+              //boycottIsraeliTechRouter.pop();
               return false;
             },
             child: ProviderScope(overrides: overrides.data!, child: const BoycottIsraeliTechApp()),
