@@ -7,9 +7,9 @@ part 'route_stack_iteem_model.freezed.dart';
 class RouteStackIteemModel<T> with _$RouteStackIteemModel {
   const RouteStackIteemModel._();
   const factory RouteStackIteemModel({
-    required String name,
+    String? name,
     T? args,
   }) = _RouteStackIteemModel;
 
-  factory RouteStackIteemModel.fromRoute(Route route) => RouteStackIteemModel(name: route.settings.name!, args: route.settings.arguments as T);
+  factory RouteStackIteemModel.fromRoute(Route route) => RouteStackIteemModel(name: route.settings.name, args: route.settings.arguments as T);
 }
