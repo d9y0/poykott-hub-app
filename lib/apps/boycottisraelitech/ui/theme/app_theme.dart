@@ -11,31 +11,24 @@ class AppTheme {
         secondaryContainer: Color.fromARGB(255, 33, 46, 70),
         tertiaryContainer: Color.fromARGB(255, 88, 116, 168),
       ),
-
       background: Color(0xff2f3b52),
-      scaffoldBackground: Color(0xff242e42), //Color(0xff1c242f),
+      scaffoldBackground: Color(0xff242e42),
       appBarBackground: Color(0xff242e42),
       useMaterial3: true,
     );
-    /*return FlexThemeData.dark(
-      scheme: FlexScheme.blueM3,
-      useMaterial3: true,
-    );*/
   }
 
   static ThemeData get lightTheme {
     return FlexThemeData.light(
       colorScheme: SeedColorScheme.fromSeeds(
         brightness: Brightness.light,
-        primaryKey: Colors.lightBlue,
-
-        //tones: FlexTones.vivid(Brightness.dark),
+        primaryKey: Colors.white,
+        primaryContainer: Colors.white,
+        secondaryContainer: Colors.grey[200]!,
+        tertiaryContainer: Colors.grey[300]!,
       ),
+      scaffoldBackground: Colors.grey[50]!,
       useMaterial3: true,
     );
-    /*return FlexThemeData.light(
-      scheme: FlexScheme.blue,
-      useMaterial3: true,
-    );*/
   }
 }

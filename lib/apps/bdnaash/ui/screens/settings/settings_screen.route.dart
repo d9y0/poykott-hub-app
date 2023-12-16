@@ -13,7 +13,7 @@ import 'package:gap/gap.dart';
   name: SettingsScreen.name,
 )
 class SettingsScreen extends ConsumerWidget {
-  static const name = "BoycottIsraeliTech_SettingsScreenRoute";
+  static const name = "Bdnaash_SettingsScreenRoute";
   static const path = "/settings";
   const SettingsScreen({super.key});
 
@@ -152,10 +152,9 @@ class SettingsScreen extends ConsumerWidget {
                       color: Colors.red.shade900,
                       elevation: 8,
                       onTap: () {
-                        AutoRouter.of(context).popUntilRoot();
-                        boycottAllInOneAppRouter.navigatorKey.currentState!.pop();
+                        AutoRouter.of(context).pop();
 
-                        AutoRouter.of(context);
+                        boycottAllInOneAppRouter.navigatorKey.currentState!.pop();
                       },
                       child: Center(
                         child: Text(

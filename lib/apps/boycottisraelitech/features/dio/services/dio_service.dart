@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class aaa {}
-
 class DioService {
   static Future<DioService Function(ProviderRef<DioService>)> Function() providerRefFn = () async {
     final service = DioService();

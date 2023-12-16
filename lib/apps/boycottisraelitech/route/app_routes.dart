@@ -6,6 +6,7 @@ import 'package:boycott_hub/apps/boycottisraelitech/ui/screens/home/home_screen.
 import 'package:boycott_hub/apps/boycottisraelitech/ui/screens/settings/settings_screen.route.dart';
 import 'package:boycott_hub/apps/boycottisraelitech/ui/screens/splash/splash_screen.route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as modalBottomSheet;
 
 part 'app_routes.gr.dart';
@@ -23,7 +24,9 @@ Route<T> modalSheetBuilder<T>(BuildContext context, Widget child, AutoRoutePage<
   //expanded: true,
 }
 
-final boycottIsraeliTechRouter = AppRouter();
+final boycottIsraeliTechRouterProvider = Provider<AppRouter>((ref) => throw UnimplementedError());
+
+//final boycottIsraeliTechRouter = AppRouter();
 
 @AutoRouterConfig(
   generateForDir: [
@@ -31,6 +34,7 @@ final boycottIsraeliTechRouter = AppRouter();
   ],
 )
 class AppRouter extends _$AppRouter {
+  static AppRouter? currentRouter = null;
   @override
   RouteType get defaultRouteType => const RouteType.material(); //.cupertino, .adaptive ..etc
 
