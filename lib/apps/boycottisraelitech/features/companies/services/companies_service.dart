@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:boycott_hub/apps/boycottisraelitech/features/companies/constant.dart';
@@ -46,11 +47,11 @@ class CompaniesService {
       final res = await companiesRepository.getIsraelCompaniesServices(eTag: cacheEtag);
 
       if (res.statusCode == 200 && res.headers.value("etag") != null) {
-        Uint8List bytes = Uint8List.fromList(utf8.encode(res.data ?? ""));
+        Uint8List bytes = Uint8List.fromList(utf8.encode(json.encode(res.data)));
         etagApiCacheService.save(IsraelCompaniesServicesUrl, res.headers.value("etag")!, bytes);
       }
 
-      final List<dynamic> mapList = json.decode(res.data ?? "")["companiesAndServices"] as List<dynamic>;
+      final List<dynamic> mapList = res.data?["companiesAndServices"] as List<dynamic>;
       final List<CompanyModel> list = mapList.map<CompanyModel>((e) => CompanyModel.fromJson(e as Map<String, dynamic>)).toList();
 
       return list;
