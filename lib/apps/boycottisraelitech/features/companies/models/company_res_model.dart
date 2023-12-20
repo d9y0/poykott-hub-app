@@ -22,7 +22,7 @@ class CompanyModel with _$CompanyModel {
     // note: using an empty list as a default value
   }) = _CompanyModel;
 
-  String get fixedLogo => "https://raw.githubusercontent.com/" + path.join("TheBSD/poykott/main/", logo.substring(2, logo.length));
+  String get fixedLogo => "https://boycottisraelitech.com/" + path.join("/", logo.substring(2, logo.length));
   String get logoType => path.extension(logo);
   String get fixedCategory => category.isEmpty ? "unclassified" : category;
   String get arCategory {
