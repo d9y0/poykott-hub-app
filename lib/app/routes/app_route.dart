@@ -4,6 +4,7 @@ import 'package:boycott_hub/app/ui/screens/bdnaash_lancher/bdnaash_lancher_scree
 import 'package:boycott_hub/app/ui/screens/boycott_israeli_tech_lancher/boycott_israeli_tech_lancher.route.dart';
 import 'package:boycott_hub/app/ui/screens/settings/settings_screen.route.dart';
 import 'package:boycott_hub/app/ui/screens/splash/splash_screen.route.dart';
+import 'package:boycott_hub/app/ui/screens/witness_lancher/witness_lancher_screen.route.dart';
 
 part 'app_route.gr.dart';
 
@@ -40,6 +41,10 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: BdnaashLancherScreenRoute.page,
           path: BdnaashLancherScreen.path,
+        ),
+        AutoRoute(
+          page: WitnessLancherScreenRoute.page,
+          path: WitnessLancherScreen.path,
         ),
 
         //SplashScreenRoute
