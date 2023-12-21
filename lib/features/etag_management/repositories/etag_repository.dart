@@ -7,17 +7,17 @@ import 'package:boycott_hub/features/path_provider/path_provider.dart';
 import 'package:boycott_hub/features/uuid/uuid_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tuple/tuple.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as path;
 
 class EtagRepository {
-  static final provider = Provider.family.autoDispose<EtagRepository, String>((ref, p) {
-    final _prefix = ref.read(appPrefix);
+  static final provider = Provider.family.autoDispose<EtagRepository, Tuple2<String, String>>((ref, p) {
     return EtagRepository(
-      dirPath: path.join(ref.read(PathProvider.tempDirProvider).path, ref.read(appName), _prefix.substring(0, _prefix.length - 1), p),
+      dirPath: path.join(ref.read(PathProvider.tempDirProvider).path, ref.read(appName), p.item1, p.item2),
       uuid: ref.read(UuidProvider.provider),
     );
-  }, dependencies: [PathProvider.tempDirProvider, UuidProvider.provider, appPrefix, appName]);
+  }, dependencies: [PathProvider.tempDirProvider, UuidProvider.provider, appName]);
 
   final String dirPath;
   final Uuid uuid;
