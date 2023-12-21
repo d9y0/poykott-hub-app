@@ -11,14 +11,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tuple/tuple.dart';
 
 class CompaniesService {
   static final provider = Provider(
     (ref) {
       return CompaniesService(
           companiesRepository: ref.read(CompaniesRepository.provider),
-          etagApiCacheService: ref.read(EtagManagementService.provider("api")),
-          etagImageCacheService: ref.read(EtagManagementService.provider("image")));
+          etagApiCacheService: ref.read(EtagManagementService.provider(Tuple2<String, String>.fromList(["BoycottIsraeliTechApp", "api"]))),
+          etagImageCacheService: ref.read(EtagManagementService.provider(Tuple2<String, String>.fromList(["BoycottIsraeliTechApp", "image"]))));
     },
     dependencies: [CompaniesRepository.provider, EtagManagementService.provider],
   );

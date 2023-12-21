@@ -4,9 +4,10 @@ import 'package:boycott_hub/features/etag_management/repositories/etag_repositor
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tuple/tuple.dart';
 
 class EtagManagementService {
-  static final provider = Provider.family.autoDispose<EtagManagementService, String>(
+  static final provider = Provider.family.autoDispose<EtagManagementService, Tuple2<String, String>>(
     (ref, p) => EtagManagementService(etagRepository: ref.read(EtagRepository.provider(p))),
     dependencies: [EtagRepository.provider],
   );
