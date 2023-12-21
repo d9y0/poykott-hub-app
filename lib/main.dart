@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:boycott_hub/app/boycott_all_in_one.dart';
 
 import 'package:boycott_hub/features/app_prefix/app_prefix_provider.dart';
+import 'package:boycott_hub/features/config/presentation/config_providers.dart';
 import 'package:boycott_hub/features/connectivity/connectivity_providers.dart';
 import 'package:boycott_hub/features/path_provider/path_provider.dart';
 
@@ -22,13 +23,14 @@ Future<void> main() async {
   String packageName = packageInfo.packageName;
   String version = packageInfo.version;
   String buildNumber = packageInfo.buildNumber;*/
-
+//configFutureProvider
   final List<Override> overrides = [
     appPrefix.overrideWith((ref) => ''),
     await SharedPrefsStorageProviderManage.overrideSharedPrefsStorage(),
     ...(await ConnectivityProviders.overrideConnectivityProviders()),
     PathProvider.tempDirProvider.overrideWith(await PathProvider.tempDirProviderRefFn()),
   ];
+
   runApp(
     DevicePreview(
       enabled: false,
