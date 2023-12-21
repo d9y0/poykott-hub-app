@@ -1,0 +1,61 @@
+{
+    "configs_urls":[
+        "https://d9y0.github.io/poykott-hub-app/public/config.json"
+    ],
+    "update_info":{
+        "last_version":"",
+        "last_apk_url":"",
+        "last_ipa_url":""
+    },
+    "chngelog":[
+        {
+            "version":"",
+            "chngelogs":[
+            
+            ],
+            "apk_urls":[],
+            "ipa_urls":[]
+
+        },
+        {
+            "version":"v0.0.1-alpha",
+            "chngelogs":[
+                "starter app",
+                "Add boycott israeli tech"
+            ],
+            "apk_urls":[],
+            "ipa_urls":[]
+
+        }
+    ],
+    "main_dynamic_widget":{
+        "ar":{
+            "type": "",
+            "args": {
+                "any":{
+                    "type": "",
+                    "args": {
+                        "any":{}
+                    }
+                }
+            }
+        },
+        "en":{
+            "type": "",
+            "args": {
+                "any":{
+                    "type": "",
+                    "args": {
+                        "any":{}
+                    }
+                }
+            }
+        }
+    },
+    "apps_config":{
+        "witness_app_config":{
+            "endpoint":"https://boycott.thewitness.news/_next/data/q-c7MNL1yKOPwsCsspUgJ",
+            "categories_list":["car"]
+        }
+    }
+}
