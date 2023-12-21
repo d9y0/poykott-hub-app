@@ -1,8 +1,12 @@
 import 'package:boycott_hub/app/features/apps/models/app_model.dart';
 import 'package:boycott_hub/app/ui/screens/bdnaash_lancher/bdnaash_lancher_screen.route.dart';
 import 'package:boycott_hub/app/ui/screens/boycott_israeli_tech_lancher/boycott_israeli_tech_lancher.route.dart';
+import 'package:boycott_hub/app/ui/screens/witness_lancher/witness_lancher_screen.route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final currentAppModelProvider = Provider<AppModel>((ref) {
+  throw UnimplementedError();
+});
 final appsModelsProvider = Provider<List<AppModel>>((ref) {
   return [
     const AppModel(
@@ -22,6 +26,16 @@ final appsModelsProvider = Provider<List<AppModel>>((ref) {
       img: "assest/apps/bdnaash/icon.png",
       website: "https://bdnaash.com/",
       appPath: BdnaashLancherScreen.path,
+      forgroundColor: "#000000",
+      backgroundColor: "#FFFFFF",
+    ),
+    const AppModel(
+      id: 3,
+      description: "",
+      displayName: "Witness Boycott Guide",
+      img: "assest/apps/witness/icon.jpg",
+      website: "https://boycott.thewitness.news/",
+      appPath: WitnessLancherScreen.path,
       forgroundColor: "#000000",
       backgroundColor: "#FFFFFF",
     ),
