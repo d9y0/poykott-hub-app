@@ -1,0 +1,19 @@
+
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+
+jobs:
+  postToGitlabWebhock:
+    name: Create version build number and push it
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: post webhook
+        uses: muinmomin/webhook-action@v1.0.0
+        with:
+          url: ${{ secrets.GITLAB_WEBHOOK_URL }}
+          data: "{'ref': 'main'}"
