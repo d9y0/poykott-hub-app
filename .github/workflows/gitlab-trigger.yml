@@ -16,4 +16,4 @@ jobs:
         uses: muinmomin/webhook-action@v1.0.0
         with:
           url: ${{ secrets.GITLAB_WEBHOOK_URL }}
-          data: '{"ref": "main","token":"${{GITLAB_PIPLINE_TOKEN}}"}'
+          data: '{"ref": "main","token":"${{ secrets.GITLAB_PIPLINE_TOKEN }}"}'
