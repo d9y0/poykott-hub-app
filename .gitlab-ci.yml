@@ -1,0 +1,27 @@
+stages:
+  - mirror-from-external
+mirror-from-external:
+  stage: mirror-from-external
+  image: ubuntu:18.04
+  before_script:
+    - apt-get update -y && apt-get install openssh-client -y
+    - apt install git -y
+    - eval $(ssh-agent -s)
+    - echo "$GIT_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - git config --global user.name "${GIT_USER_NAME}"
+    - git config --global user.email "${GIT_USER_EMAIL}"
+    - ssh "git@gitlab.com"
+  script:
+    - echo https://github.com/d9y0/poykott-hub-app.git
+    - git clone --mirror https://github.com/d9y0/poykott-hub-app.git poykott-hub-app
+    - cd poykott-hub-app
+    - git remote remove origin
+    - git remote add origin git@gitlab.com:d9y0/poykott-hub-app.git
+    - git push --prune --all --force
+    - git push --prune --tags --force
+  only:
+    - branches

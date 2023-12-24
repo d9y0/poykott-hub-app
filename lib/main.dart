@@ -17,18 +17,13 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  /*PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-  String appName = packageInfo.appName;
-  String packageName = packageInfo.packageName;
-  String version = packageInfo.version;
-  String buildNumber = packageInfo.buildNumber;*/
-//configFutureProvider
   final List<Override> overrides = [
     appPrefix.overrideWith((ref) => ''),
     await SharedPrefsStorageProviderManage.overrideSharedPrefsStorage(),
     ...(await ConnectivityProviders.overrideConnectivityProviders()),
     PathProvider.tempDirProvider.overrideWith(await PathProvider.tempDirProviderRefFn()),
+    ...(await ConfigProvider.override()),
   ];
 
   runApp(

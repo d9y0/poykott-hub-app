@@ -18,30 +18,31 @@ class BoycottAllInOne extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeNotifier);
     return FutureBuilder(
-        future: ref.read(ConfigProvider.configFutureProvider.future),
+        future: ref.refresh(ConfigProvider.configFutureProvider.future),
         builder: (context, snapshot) {
-          log(snapshot.data.toString());
-          return MaterialApp.router(
-            builder: (context, child) {
-              return Column(
-                children: [
-                  Expanded(child: child!),
-                  const InternentConnectationStatusWidget(),
-                ],
-              );
-            },
-            debugShowCheckedModeBanner: false,
-            scrollBehavior: CustomScrollBehavior(),
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: themeMode,
-            routeInformationParser: boycottAllInOneAppRouter.defaultRouteParser(),
-            routerDelegate: boycottAllInOneAppRouter.delegate(
-              navigatorObservers: () => [ref.read(AutoRouterObserverService.provider)],
-            ),
-          );
+          return Consumer(builder: (context, ref2, child) {
+            final themeMode = ref2.watch(themeModeNotifier);
+            return MaterialApp.router(
+              builder: (context, child) {
+                return Column(
+                  children: [
+                    Expanded(child: child!),
+                    const InternentConnectationStatusWidget(),
+                  ],
+                );
+              },
+              debugShowCheckedModeBanner: false,
+              scrollBehavior: CustomScrollBehavior(),
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeMode: themeMode,
+              routeInformationParser: boycottAllInOneAppRouter.defaultRouteParser(),
+              routerDelegate: boycottAllInOneAppRouter.delegate(
+                navigatorObservers: () => [ref2.read(AutoRouterObserverService.provider)],
+              ),
+            );
+          });
         });
   }
 }
