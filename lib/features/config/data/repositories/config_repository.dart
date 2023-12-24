@@ -8,11 +8,12 @@ class ConfigRepository {
   });
 
   Future<Response<Map<String, dynamic>>> getConfig({required String url, String? eTag}) async {
-    return await dio.get<Map<String, dynamic>>(
+    final res = await dio.get<Map<String, dynamic>>(
       url,
       options: Options(
         headers: {"If-None-Match": eTag},
       ),
     );
+    return res;
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
+import 'dart:developer';
 import 'package:boycott_hub/features/config/data/models/config/config_res_model.dart';
 import 'package:boycott_hub/features/config/data/repositories/config_repository.dart';
 import 'package:boycott_hub/features/etag_management/services/etag_management_service.dart';
@@ -22,12 +22,13 @@ class ConfigService {
       try {
         final cacheEtag = await etagApiCacheService.getEtag(url);
         final res = await configRepository.getConfig(url: url, eTag: cacheEtag);
+
         if (res.statusCode == 200 && res.headers.value("etag") != null) {
           Uint8List bytes = Uint8List.fromList(utf8.encode(json.encode(res.data)));
           etagApiCacheService.save(url, res.headers.value("etag")!, bytes);
         }
 
-        final ConfigResModel configResModel = ConfigResModel.fromJson(res.data!);
+        final ConfigResModel configResModel = ConfigResModel.fromJson(res.data! as Map<String, dynamic>);
 
         return configResModel;
       } on DioException catch (e) {

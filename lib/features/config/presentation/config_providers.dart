@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:boycott_hub/features/config/data/constant.dart';
 import 'package:boycott_hub/features/config/data/models/config/config_res_model.dart';
 import 'package:boycott_hub/features/config/data/repositories/config_repository.dart';
@@ -23,10 +21,10 @@ class ConfigProvider {
     (ref) => configsUrls,
   );
   static final configRepositoryProvider = Provider<ConfigRepository>(
-    (ref) => ConfigRepository(
-      dio: ref.read(dioProvider),
-    ),
-  );
+      (ref) => ConfigRepository(
+            dio: ref.read(dioProvider),
+          ),
+      dependencies: [dioProvider]);
 
   static final configServiceProvider = Provider<ConfigService>(
       (ref) => ConfigService(
@@ -37,11 +35,15 @@ class ConfigProvider {
 
   static final configFutureProvider = FutureProvider.autoDispose<ConfigResModel>(
     (ref) async {
-      log("XX^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^XX");
       final configService = ref.read(configServiceProvider);
-      final configResModel = await configService.getConfig();
-      ref.keepAlive();
-      return configResModel;
+      try {
+        final configResModel = await configService.getConfig();
+
+        ref.keepAlive();
+        return configResModel;
+      } catch (e, t) {
+        throw e;
+      }
     },
     dependencies: [configServiceProvider],
   );
