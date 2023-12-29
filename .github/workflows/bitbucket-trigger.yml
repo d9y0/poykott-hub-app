@@ -1,0 +1,22 @@
+
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+
+jobs:
+  postToBitbucketWebhock:
+    name: Create version build number and push it
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: post webhook
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://api.bitbucket.org/2.0/repositories/poykott-hub/poykott-hub-app/pipelines'
+          method: 'POST'
+          customHeaders: '{"Content-Type": "application/json"}'
+          bearerToken: '${{ secrets.BITBUCKET_WEBHOOK_TOKEN }}'
+          data: '{"target": {"ref_type": "branch","type": "pipeline_ref_target","ref_name": "main"}}'
