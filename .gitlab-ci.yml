@@ -26,4 +26,4 @@ mirror-from-external:
   when: manual
   rules:
     - if: "$CI_PIPELINE_SOURCE == 'trigger'"
-       when: always
+      when: always
