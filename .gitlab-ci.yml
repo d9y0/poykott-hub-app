@@ -23,5 +23,4 @@ mirror-from-external:
     - git remote add origin git@gitlab.com:d9y0/poykott-hub-app.git
     - git push --prune --all --force
     - git push --prune --tags --force
-  only:
-    - branches
+  when: manual
