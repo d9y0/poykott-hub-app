@@ -24,3 +24,6 @@ mirror-from-external:
     - git push --prune --all --force
     - git push --prune --tags --force
   when: manual
+  rules:
+    - if: "$CI_PIPELINE_SOURCE == 'trigger'"
+      when: always
