@@ -1,7 +1,8 @@
 stages:
   - mirror-from-external
+  - pages
 mirror-from-external:
-  stage: mirror-from-external
+  stage: build
   image: ubuntu:18.04
   before_script:
     - apt-get update -y && apt-get install openssh-client -y
@@ -30,4 +31,15 @@ mirror-from-external:
   rules:
     - if: "$CI_PIPELINE_SOURCE == 'trigger'"
       when: always
-      
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+
