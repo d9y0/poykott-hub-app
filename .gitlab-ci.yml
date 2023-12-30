@@ -32,9 +32,14 @@ mirror-from-external:
       
 pages:
   stage: deploy
+  image: ubuntu:18.04
   environment: production
+  script:
+    - echo "Pages accessible through"
   artifacts:
     paths:
       - public
+  when: manual
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: "$CI_PIPELINE_SOURCE == 'trigger'"
+      when: always
