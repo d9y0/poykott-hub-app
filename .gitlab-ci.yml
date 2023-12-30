@@ -1,10 +1,10 @@
+image: ubuntu:18.04
 
 stages:
   - mirror-from-external
   - pages
 mirror-from-external:
   stage: mirror-from-external
-  image: ubuntu:18.04
   before_script:
     - apt-get update -y && apt-get install openssh-client -y
     - apt install git -y
@@ -31,15 +31,16 @@ mirror-from-external:
       when: always
       
 pages:
-  stage: deploy
-  image: ubuntu:18.04
+  stage: pages
   environment: production
   script:
     - echo "Pages accessible through"
   artifacts:
     paths:
       - public
-  when: manual
-  rules:
-    - if: "$CI_PIPELINE_SOURCE == 'trigger'"
-      when: always
+  only:
+    - main
+  #when: manual
+  #rules:
+  #  - if: "$CI_PIPELINE_SOURCE == 'trigger'"
+  #    when: always
