@@ -2,7 +2,7 @@ stages:
   - mirror-from-external
   - pages
 mirror-from-external:
-  stage: build
+  stage: mirror-from-external
   image: ubuntu:18.04
   before_script:
     - apt-get update -y && apt-get install openssh-client -y
