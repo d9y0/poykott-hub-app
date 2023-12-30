@@ -1,3 +1,4 @@
+
 stages:
   - mirror-from-external
   - pages
@@ -24,22 +25,16 @@ mirror-from-external:
     - git remote add origin git@gitlab.com:d9y0/poykott-hub-app.git
     - git push --prune --all --force
     - git push --prune --tags --force
-  artifacts:
-    paths:
-      - public
   when: manual
   rules:
     - if: "$CI_PIPELINE_SOURCE == 'trigger'"
       when: always
+      
 pages:
   stage: deploy
-  script:
-    - mkdir .public
-    - cp -r * .public
-    - mv .public public
+  environment: production
   artifacts:
     paths:
       - public
-  only:
-    - main
-
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
